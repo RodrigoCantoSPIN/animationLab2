@@ -6,7 +6,7 @@
  * @format
  */
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -57,7 +57,9 @@ function App(): React.JSX.Element {
 
     setCurrentCharacter({index: newIndex, character: newChar});
   }
-
+  const SwipableCard = useMemo(() => {
+    return <SwipeCard current={currentCharacter} onSwipe={swipeCharacter} />;
+  }, [currentCharacter]);
   return (
     <GestureHandlerRootView style={styles.mainContainer}>
       <SafeAreaView style={backgroundStyle}>
@@ -66,7 +68,7 @@ function App(): React.JSX.Element {
           backgroundColor={backgroundStyle.backgroundColor}
         />
 
-        <SwipeCard current={currentCharacter} onSwipe={swipeCharacter} />
+        {SwipableCard}
       </SafeAreaView>
     </GestureHandlerRootView>
   );
